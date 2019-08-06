@@ -3,7 +3,7 @@ use regex::Regex;
 use std::io;
 
 fn main() {
-    let re = Regex::new(r"[a-z]+@[a-z]{2,8}[.][a-z]{2,8}[.]?[a-z]*").unwrap();
+    let re = Regex::new(r"[a-z0-9]+@[a-z]{2,8}[.][a-z]{2,8}[.]?[a-z]*").unwrap();
     let mut input = String::new();
     println!("Enter you're email:", );
     match io::stdin().read_line(&mut input) {
