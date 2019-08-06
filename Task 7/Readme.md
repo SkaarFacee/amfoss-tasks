@@ -1,1 +1,1 @@
-This is the rust task using regex.< br/>
+This is the rust task using regex.
