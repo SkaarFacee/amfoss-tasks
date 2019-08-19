@@ -1,13 +1,15 @@
 require 'nokogiri'
-require 'httparty'
-require 'byebug'
+require 'open-uri'
+require 'pry'
+
 
 def scraper
-    url = "https://www.google.com/search?q=linux"
-    unparsed = HTTParty.get(url)
-    parsed = Nokogiri::HTML(unparsed)
-    parsed.css('div.LC20lb')
-    byebug
+    
+    page = Nokogiri:: HTML(open("https://www.google.com/search?client=ubuntu&channel=fs&q=linux&ie=utf-8&oe=utf-8"))
+    ps = page.xpath(".//div//a//@href").each do |link|
+        puts link.content
+    end
+
 end
 
 scraper
