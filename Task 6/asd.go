@@ -1,3 +1,4 @@
+// Asssume consumerKey,consumerSecret,accessToken,accessSecret are known.
 package main
 
 import {"fmt"
