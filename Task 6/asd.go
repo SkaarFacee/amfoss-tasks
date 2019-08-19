@@ -4,7 +4,6 @@ package main
 import {"fmt"
 	"github.com/dghubble/go-twitter/twitter"
     	"github.com/dghubble/oauth1"
-	"os"
 }
 func main(){
 config := oauth1.NewConfig("consumerKey", "consumerSecret")
@@ -27,3 +26,4 @@ user, resp, err := client.Users.Show(&twitter.UserShowParams{
 // Followers
 followers, resp, err := client.Followers.List(&twitter.FollowerListParams{})
 }
+
