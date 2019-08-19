@@ -4,7 +4,7 @@ This Repo is created for all the tasks I've completed inorder to join amFOSS.
 
 ## Completed Tasks:
 | Tasks Done    | Description                                                         |
-| ------------- |:-----------------------------------------------------------:        |
+| ------------- |:-------------------------------------------------------------------:|
 | Task 1        | Task to star all amFOSS repositories.                               |
 | Task 2        | Task to solve programming challenges.                               |
 | Task 3        | Task to Google scrape using Ruby and nokogiri gem.                  |
