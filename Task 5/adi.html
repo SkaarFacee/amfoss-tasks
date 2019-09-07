@@ -1,0 +1,113 @@
+<html>
+
+<head>
+    <meta charset="UTF-8"> 
+    <link href='https://fonts.googleapis.com/css?family=Kalam' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet"> 
+  <meta content="">
+  <style>
+      img {
+        border-radius: 50%;
+      }
+      h1{
+            font-family: 'Righteous';font-size: 34px;color:#ccffcc
+        }
+        body {
+        font-family:'Kalam';font-size: 28px;color:whitesmoke
+    }
+  
+  </style>
+  <title style="text-align:center"> Github ID search </title> 
+</head>
+<body background="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRN0pyAfqpXL_RbV97WANK3F6M0isVdKltDmGAFTDTTDSYOI8-w">
+
+
+  
+  <h1>Github ID search </h1>
+  <input id="search" placeholder="Search..">
+  <button id="search_btn"> Search </button>
+
+  <p id="name"></p>
+  <p id="bio"></p>
+  <p id="company"></p>
+  <p id="repo"></p>
+  <p id="websiteUrl"><a href="adi.text"></a></p>
+  <p id="location"></p>
+    <img id="pic" height="0" width="0"></img>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>
+
+
+function search_github(search)
+{
+    var query = `{ 
+    repositoryOwner(login: "${search}") {
+    login 
+    ... on User {
+      bio 
+      name
+      company
+      websiteUrl
+      location
+      avatarUrl
+      repositories{
+      totalCount
+    }
+    } 
+  }
+}`;
+
+    fetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'bearer 4b53f7cd42baed3b55e530c053223f60b8ac3468'
+      },
+      body: JSON.stringify({
+        query
+      })
+    })
+      .then(r => r.json())
+      .then(data => {
+        console.log('data returned:', data);
+        if(data.data.repositoryOwner==null){
+          alert("No user, Try again")
+        }
+        document.getElementById("pic").src = data.data.repositoryOwner.avatarUrl;
+        document.getElementById("pic").height = 300;
+        document.getElementById("pic").width = 300;
+        $("#name").text("Name : " +data.data.repositoryOwner.name)
+        $("#bio").text("Bio: " +data.data.repositoryOwner.bio)
+        if(data.data.repositoryOwner.company==null){
+          $("#company").text("Has not joined a Company ")
+        }
+        else{
+          $("#company").text("Company: " +data.data.repositoryOwner.company)  
+        }     
+        $("#repo").text("Number of Repositories: " +data.data.repositoryOwner.repositories.totalCount)
+        $("#websiteUrl").text("Website: " +data.data.repositoryOwner.websiteUrl)        
+        if(data.data.repositoryOwner.location==null){
+          $("#location").text("Location not given by user ")
+        }
+        else{
+          $("#location").text("Location: " +data.data.repositoryOwner.location)
+        }
+      });
+}
+
+
+
+$( "#search_btn" ).click(function() {
+  var search_query = $("#search").val();
+  search_github(search_query);
+});
+  </script>
+
+</body>
+
+</html>
+
