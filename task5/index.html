@@ -34,15 +34,15 @@
   <p id="websiteUrl"><a href="adi.text"></a></p>
   <p id="location"></p>
     <img id="pic" height="0" width="0"></img>
+    <img id="emote" height="0" width="o"></img>
 
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>
 
-
 function search_github(search)
-{
+{    
     var query = `{ 
     repositoryOwner(login: "${search}") {
     login 
@@ -65,7 +65,7 @@ function search_github(search)
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'bearer #######################'
+        'Authorization': 'bearer 07db942fd247d5441ef2477960b47c9766aec563'
       },
       body: JSON.stringify({
         query
@@ -77,6 +77,9 @@ function search_github(search)
         if(data.data.repositoryOwner==null){
           alert("No user, Try again")
         }
+        document.getElementById("emote").src = "https://github.com/identicons/"+ data.data.repositoryOwner.login +".png";
+        document.getElementById("emote").height = 300;
+        document.getElementById("emote").width = 300;
         document.getElementById("pic").src = data.data.repositoryOwner.avatarUrl;
         document.getElementById("pic").height = 300;
         document.getElementById("pic").width = 300;
